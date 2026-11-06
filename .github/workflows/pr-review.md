@@ -1,7 +1,7 @@
 ---
 on:
-  pull_request:
-    types: [labeled]
+  issues:
+    types: [opened]
 
 engine: claude
 model: claude-haiku-4.5
