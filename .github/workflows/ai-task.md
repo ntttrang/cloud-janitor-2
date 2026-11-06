@@ -6,8 +6,9 @@ on:
 
 if: github.event.label.name == 'ai-task'
 
-engine: claude
-model: claude-sonnet-4.6
+engine: codex
+model: openai/gpt-5.6-sol
+
 # Khai báo skill pstack
 skills:
   - cursor/plugins/pstack@main
@@ -20,12 +21,9 @@ permissions:
 
 tools:
   edit:
-  bash:
-    - go:*
-    - gofmt:*
-    - git status
-    - git diff
-    - git log
+  # Engine codex khong ho tro bash command allow-list (bi ignore khi runtime).
+  # Dung ["*"] de cap phep bash; sandbox cua codex van giu ranh gioi.
+  bash: ["*"]
 
 network:
   allowed:
@@ -43,14 +41,12 @@ safe-outputs:
 
 # Task implementation
 
-# Agentic Full SDLC Workflow for Go (pstack & Claude Code)
-
-Quy trình tự động hóa phát triển phần mềm toàn diện cho Golang sử dụng pstack global plugin và Claude Code thông qua `gh aw`. Luon luon su dung potato-mode cua pstack khi lam task.
+Quy trình tự động hóa phát triển phần mềm toàn diện cho Golang (Agentic Full SDLC) sử dụng pstack global plugin thông qua `gh aw`. Luon luon su dung potato-mode cua pstack khi lam task.
 
 ## Triggers
-- Khi một GitHub Issue được gán nhãn `ai-task`.
-- Khi có Pull Request mới được mở hoặc đồng bộ (`pull_request`).
 
-## Steps / Instructions for the Agent:
+- Khi một GitHub Issue được gán nhãn `ai-task`.
+
+## Steps / Instructions for the Agent
 
 Use potato-mode to implement issue.
